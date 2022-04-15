@@ -1,0 +1,10 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Testing With Python
+        uses: PrajjawalBanati/Python-actions@0.0.1
