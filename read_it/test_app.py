@@ -18,6 +18,5 @@ def test_api_gateway():
         restApiId=api
     )
     assert output['ResponseMetadata']['HTTPStatusCode'] == 200
-#     # Some change to get the push to go through
 def test_basic():
     assert 1 == 1
