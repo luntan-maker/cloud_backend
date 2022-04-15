@@ -1,4 +1,6 @@
 import boto3
+import os
+os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
 
 def test_table_exists():
     dynamodb = boto3.client('dynamodb')
