@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+
+Resources:
+  ReadIt:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: read_it/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /read
+            Method: any
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyDynamoTable
+  WriteIt:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: read_it/
+      Handler: app.lambda_handler2
+      Runtime: python3.8
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /write
+            Method: any
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyDynamoTable
+  MyDynamoTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: user
+      AttributeDefinitions:
+        - AttributeName: Date
+          AttributeType: S
+        - AttributeName: User
+          AttributeType: S
+      KeySchema:
+        - AttributeName: User
+          KeyType: HASH
+        - AttributeName: Date
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      ProvisionedThroughput:
+        ReadCapacityUnits: 0
+        WriteCapacityUnits: 0
+        
